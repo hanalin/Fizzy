@@ -31,12 +31,5 @@ extern "C" void __cxa_pure_virtual() {;}
 
 #include "C:\Program Files\Arduino\hardware\arduino\variants\standard\pins_arduino.h" 
 #include "C:\Program Files\Arduino\hardware\arduino\cores\arduino\arduino.h"
-#include "C:\usr\sketches\fizzy\fizzy.ino"
-#include "C:\usr\sketches\fizzy\Fizzy_motor.h"
-#include "C:\usr\sketches\fizzy\Fizzy_smart_motor.cpp"
-#include "C:\usr\sketches\fizzy\fizzy_motor.cpp"
-#include "C:\usr\sketches\fizzy\fizzy_smart_motor.h"
-#include "C:\usr\sketches\fizzy\ifizzyencoder.h"
-#include "C:\usr\sketches\fizzy\ifizzymicromouse.h"
-#include "C:\usr\sketches\fizzy\ifizzysensor.h"
+#include "C:\usr\sketches\Fizzy\Fizzy.ino"
 #endif

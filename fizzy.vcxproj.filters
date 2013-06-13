@@ -15,18 +15,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fizzy.ino" />
-    <None Include="Fizzy_motor.cpp" />
-    <None Include="Fizzy_smart_motor.cpp" />
-    <None Include="fizzy_motor.h">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="fizzy_smart_motor.h">
-      <Filter>Header Files</Filter>
-    </None>
+    <None Include="Fizzy.ino" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Visual Micro\.fizzy.vsarduino.h">
+    <ClInclude Include="Visual Micro\.Fizzy.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fizzy_motor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fizzy_smart_motor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ifizzyencoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ifizzymicromouse.h">
@@ -35,8 +37,13 @@
     <ClInclude Include="ifizzysensor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ifizzyencoder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="fizzy_motor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fizzy_smart_motor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

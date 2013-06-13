@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{04901341-84D0-4A79-A3B3-648A93EACF43}</ProjectGuid>
-    <RootNamespace>fizzy</RootNamespace>
+    <ProjectGuid>{ECC62E84-88C0-4616-8B34-E3E4BA19C1B3}</ProjectGuid>
+    <RootNamespace>Fizzy</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,7 +42,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>C:\Program Files\Arduino\hardware\arduino\cores\arduino;C:\Program Files\Arduino\hardware\arduino\variants\standard;c:\program files\arduino\hardware\tools\avr\avr\include\;c:\program files\arduino\hardware\tools\avr\avr\include\avr\;c:\program files\arduino\hardware\tools\avr\avr\;c:\program files\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>C:\usr\sketches\fizzy\Visual Micro\.fizzy.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles>C:\usr\sketches\Fizzy\Visual Micro\.Fizzy.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega328P__;ARDUINO=105;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -64,32 +64,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="fizzy.ino">
+    <None Include="Fizzy.ino">
       <FileType>CppCode</FileType>
     </None>
-    <None Include="Fizzy_motor.cpp" />
-    <None Include="fizzy_motor.h" />
-    <None Include="Fizzy_smart_motor.cpp">
-      <FileType>CppCode</FileType>
-    </None>
-    <None Include="fizzy_smart_motor.h" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="fizzy_motor.h" />
+    <ClInclude Include="fizzy_smart_motor.h" />
     <ClInclude Include="ifizzyencoder.h" />
-    <ClInclude Include="ifizzymicromouse.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
-    <ClInclude Include="ifizzysensor.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
-    <ClInclude Include="Visual Micro\.fizzy.vsarduino.h" />
+    <ClInclude Include="ifizzymicromouse.h" />
+    <ClInclude Include="ifizzysensor.h" />
+    <ClInclude Include="Visual Micro\.Fizzy.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="fizzy_motor.cpp" />
+    <ClCompile Include="fizzy_smart_motor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties arduino.upload.port="COM3" />
-    </VisualStudio>
-  </ProjectExtensions>
 </Project>
