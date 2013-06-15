@@ -16,7 +16,7 @@ FizzySmartMotor::FizzySmartMotor(int left_motor_pins[2],
 
 bool FizzySmartMotor::addEncoder(IFizzyEncoder* encoder) {
 
-    if (FIZZY_ENCODERS_COUNT - 1 < encoder_count)
+    if (FIZZY_ENCODERS_COUNT < encoder_count + 1)
         return false;
 
     encoders[encoder_count] = encoder;
