@@ -1,0 +1,30 @@
+Visual\ Micro/
+
+# User-specific files
+*.suo
+*.user
+*.sln
+*.sln.docstates
+
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+
+
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+
+
