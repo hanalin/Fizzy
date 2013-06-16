@@ -7,10 +7,14 @@
 
 class IFizzyEncoder : IFizzySensor {
 
+public:
+    // use this instead of IFizzySensor::getValue()
     virtual uint32_t getCount() = 0;
 
-    virtual uint32_t getClickTravel() = 0;
-    virtual void setClickTravel(uint32_t mm) = 0;
+    virtual int16_t getClickTravel() = 0;
+    virtual void setClickTravel(int16_t mm) = 0;
+
+    virtual void onInterrupt() = 0;
 };
 
 

@@ -9,18 +9,25 @@
 enum SensorType {
     Unknown,
     WallDetector,
-    EdgeDetector
+    EdgeDetector,
+    Encoder
 };
 
 
 class IFizzySensor {
 
+public:
+
     virtual bool sensorDetectedChange() = 0;
 
-    virtual int16_t getValue() = 0;
+    virtual int32_t getValue() = 0;
 
     virtual void setFizzy(IFizzyMicroMouse* fizzy) = 0;
+    virtual void setControlMotor(FizzyMotor::Motor motor);
+
     virtual SensorType sensorType();
+
+    virtual void stabilize() = 0;
 };
 
 #endif

@@ -2,11 +2,13 @@
 #define i_Fizzy_micro_mouse_h
 
 #include "Arduino.h"
+#include "fizzy_motor.h"
 
 class IFizzyMicroMouse {
 
-    virtual void breakLeftWheel(uint8_t force) = 0;
-    virtual void breakRightWheel(uint8_t force) = 0;
+public:
+
+    virtual void breakWheel(FizzyMotor::Motor controlling, uint8_t force) = 0;
 
     virtual void stopWheels() = 0;
 

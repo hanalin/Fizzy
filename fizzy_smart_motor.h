@@ -27,16 +27,26 @@ public:
     void addSensor(IFizzySensor* sensor);
 
     void forward(int num_grids);
+
+#pragma region Overriding FizzyMotor
+
     void left();
     void right();
 
+#pragma endregion
+
     void positionControl();
 
-    void breakLeftWheel(uint8_t force);
-    void breakRightWheel(uint8_t force);
+#pragma region IFizzyMicroMouse
+
+    void breakWheel(FizzyMotor::Motor controlling, uint8_t force);
+
     void stopWheels();
+
     void turnClockWise(uint16_t degree);
     void turnCounterClockWise(uint16_t degree);
+
+#pragma endregion
 
 
 private:
@@ -47,6 +57,8 @@ private:
     uint8_t encoder_count;
 
     void initializeMembers();
+
+    void checkEncoderDiff(int first_encoder_index, int second_encoder_index);
 
     class SensorList {
 

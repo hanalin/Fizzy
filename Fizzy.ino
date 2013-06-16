@@ -1,3 +1,4 @@
+#include "fizzy_encoder.h"
 #include "fizzy_smart_motor.h"
 
 #define WHEEL_ENCODER_LEFT      2
