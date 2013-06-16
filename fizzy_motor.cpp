@@ -15,61 +15,6 @@ FizzyMotor::FizzyMotor(int pins_left[2], int pins_right[2]) {
     fizzy_state = 0;
 }
 
-#pragma region protected member functions
-
-void FizzyMotor::forwardWheel(Motor m, uint8_t break_force) {
-
-    switch(m) {
-    
-    case LeftMotor:
-        forwardWheel(&motorLeft, break_force);
-        fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_LEFT,
-                                        motorState(FIZZY_STATE_MOTOR_FORWARD, LeftMotor));
-        break;
-
-    case RightMotor:
-        forwardWheel(&motorRight, break_force);
-        fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_RIGHT,
-                                        motorState(FIZZY_STATE_MOTOR_FORWARD, RightMotor));
-        break;
-    }
-}
-
-void FizzyMotor::backwardWheel(Motor m, uint8_t break_force){
-    switch(m) {
-    
-    case LeftMotor:
-        backwardWheel(&motorLeft, break_force);
-        fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_LEFT,
-                                        motorState(FIZZY_STATE_MOTOR_FORWARD, LeftMotor));
-        break;
-
-    case RightMotor:
-        backwardWheel(&motorRight, break_force);
-        fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_RIGHT,
-                                        motorState(FIZZY_STATE_MOTOR_FORWARD, RightMotor));
-        break;
-    }
-}
-
-void FizzyMotor::stopWheel(Motor m) {
-    
-    switch(m) {
-
-    case LeftMotor:
-        stopWheel(&motorLeft);
-        fizzy_state &= FIZZY_MASK_MOTOR_LEFT;
-        break;
-
-    case RightMotor:
-        stopWheel(&motorRight);
-        fizzy_state &= FIZZY_MASK_MOTOR_RIGHT;
-        break;
-    }
-}
-
-#pragma endregion
-
 
 
 #pragma region private member functions
@@ -126,6 +71,69 @@ void FizzyMotor::breakWheel(uint8_t force, Motor m) {
 #pragma endregion
 
 
+
+#pragma region protected member functions
+
+void FizzyMotor::forwardWheel(Motor m, uint8_t break_force) {
+
+    switch(m) {
+    
+    case LeftMotor:
+        forwardWheel(&motorLeft, break_force);
+        fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_LEFT,
+                                        motorState(FIZZY_STATE_MOTOR_FORWARD, LeftMotor));
+        break;
+
+    case RightMotor:
+        forwardWheel(&motorRight, break_force);
+        fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_RIGHT,
+                                        motorState(FIZZY_STATE_MOTOR_FORWARD, RightMotor));
+        break;
+    }
+}
+
+void FizzyMotor::backwardWheel(Motor m, uint8_t break_force){
+    switch(m) {
+    
+    case LeftMotor:
+        backwardWheel(&motorLeft, break_force);
+        fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_LEFT,
+                                        motorState(FIZZY_STATE_MOTOR_FORWARD, LeftMotor));
+        break;
+
+    case RightMotor:
+        backwardWheel(&motorRight, break_force);
+        fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_RIGHT,
+                                        motorState(FIZZY_STATE_MOTOR_FORWARD, RightMotor));
+        break;
+    }
+}
+
+void FizzyMotor::stopWheel(Motor m) {
+    
+    switch(m) {
+
+    case LeftMotor:
+        stopWheel(&motorLeft);
+        fizzy_state &= FIZZY_MASK_MOTOR_LEFT;
+        break;
+
+    case RightMotor:
+        stopWheel(&motorRight);
+        fizzy_state &= FIZZY_MASK_MOTOR_RIGHT;
+        break;
+    }
+}
+
+int FizzyMotor::getState(Motor m) {
+
+    return fizzy_state & ~FIZZY_MASK_MOTOR >> 2 * m;
+}
+
+#pragma endregion
+
+
+
 #pragma region public member functions
 
 
@@ -156,12 +164,6 @@ void FizzyMotor::right() {
     backwardWheel(RightMotor);
     forwardWheel(LeftMotor);
 }
-
-int FizzyMotor::getState(Motor m) {
-
-    return fizzy_state & ~FIZZY_MASK_MOTOR >> 2 * m;
-}
-
 
 void FizzyMotor::breakLeft(int force_max255) {
     breakWheel(force_max255, LeftMotor);

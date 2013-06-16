@@ -66,6 +66,12 @@ private:
     void encoderStabilizerSystem(int first_encoder_index, int second_encoder_index);
     void sensorsStabilizerSystem();
 
+    uint32_t degree2Click(int16_t degree, bool one_wheel_only = false);
+
+    void controlTurning(int16_t degree,
+                        IFizzyEncoder* forward_motor_encoder,
+                        IFizzyEncoder* backward_motor_encoder);
+
     // Simple list of IFizzySnesors
     class SensorList {
 

@@ -59,7 +59,7 @@ void FizzySmartMotor::encoderStabilizerSystem(int i1, int i2) {
     uint32_t c1 = encoders[i1]->getCount();
     uint32_t c2 = encoders[i2]->getCount();
 
-    // abs(x) is a macro one keep the parens.
+    // abs(x) is a macro one, keep the parens.
     if (FIZZY_ENCODER_DIFF_THRES < abs((c1 - c2))) {
         encoders[c1 > c2 ? i1 : i2]->stabilize();
     }
@@ -109,7 +109,26 @@ void FizzySmartMotor::stopWheels() {
 }
 
 void FizzySmartMotor::turnClockWise(int16_t degree) {
-    
+
+    if (encoder_count > 1 && degree != 0) {
+
+        IFizzyEncoder* forward_motor_controlling_encoder;
+        IFizzyEncoder* backward_motor_controlling_encoder;
+
+        if ((LeftMotor == encoders[0]->controlMotor() && degree > 0) ||
+            (RightMotor == encoders[0]->controlMotor() && degree < 0)) {
+            forward_motor_controlling_encoder = encoders[0];
+            backward_motor_controlling_encoder = encoders[1];
+        }
+        else {
+            forward_motor_controlling_encoder = encoders[1];
+            backward_motor_controlling_encoder = encoders[0];
+        }
+
+        controlTurning(degree,
+                       forward_motor_controlling_encoder,
+                       backward_motor_controlling_encoder);
+    }
 }
 
 #pragma endregion
@@ -124,6 +143,51 @@ void FizzySmartMotor::initializeMembers() {
     encoders = new IFizzyEncoder*[FIZZY_ENCODERS_COUNT];
 
     sensors = NULL;
+}
+
+uint32_t FizzySmartMotor::degree2Click(int16_t degree, bool one_wheel_only) {
+
+    float c = ((float)abs(degree)) / 5.6;
+
+    return (uint32_t)(one_wheel_only ? c * 2.0 : c);
+}
+
+void FizzySmartMotor::controlTurning(int16_t degree,
+                                     IFizzyEncoder* forward_motor_encoder,
+                                     IFizzyEncoder* backward_motor_encoder) {
+                                         
+    forward_motor_encoder->resetOdometer();
+    backward_motor_encoder->resetOdometer();
+        
+    forwardWheel(forward_motor_encoder->controlMotor());
+    backwardWheel(backward_motor_encoder->controlMotor());
+
+    int target_count = degree2Click(degree);
+    int odo_count;
+
+    bool turning = true;
+
+    while (turning) {
+
+        turning = false;
+
+        for (int i = 0; i < 2; i++) {
+            odo_count = encoders[i]->odometerCount();
+            if (odo_count >= target_count) {
+                if (FIZZY_STATE_MOTOR_STOP != getState(encoders[i]->controlMotor())) {
+                    stopWheel(encoders[i]->controlMotor());
+                }
+            }
+            else {
+                if (odo_count + 8 > target_count) {
+                    // smooth stopping
+                    breakWheel(20 - (target_count - odo_count) * 2,
+                                encoders[i]->controlMotor());
+                }
+                turning = true;
+            }
+        }
+    }
 }
 
 #pragma endregion

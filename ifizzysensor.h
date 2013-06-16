@@ -23,9 +23,10 @@ public:
     virtual int32_t getValue() = 0;
 
     virtual void setFizzy(IFizzyMicroMouse* fizzy) = 0;
-    virtual void setControlMotor(FizzyMotor::Motor motor);
+    virtual void setControlMotor(FizzyMotor::Motor motor) = 0;
+    virtual FizzyMotor::Motor controlMotor() = 0;
 
-    virtual SensorType sensorType();
+    virtual SensorType sensorType() = 0;
 
     virtual void stabilize() = 0;
 };

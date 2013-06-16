@@ -11,13 +11,16 @@ FizzyEncoder::FizzyEncoder(int int_num,
 
     last_get_count = 0;
     count = 0;
+
+    count_updated = false;
 }
 
 #pragma region Implementing IFizzyEncoder
 
 uint32_t FizzyEncoder::getCount() {
-    // assign last_get_count and return the value
-    return last_get_count = count;
+
+    count_updated = false;
+    return count;
 }
 
 int16_t FizzyEncoder::getClickTravel() {
@@ -28,8 +31,21 @@ void FizzyEncoder::setClickTravel(int16_t milimeter) {
     travel_per_count = milimeter;
 }
 
+void FizzyEncoder::resetOdometer() {
+    last_get_count = count;
+}
+
+uint32_t FizzyEncoder::odometerCount() {
+    return count - last_get_count;
+}
+
+uint32_t FizzyEncoder::odometer() {
+    return odometerCount() * getClickTravel();
+}
+
 void FizzyEncoder::onInterrupt() {
     count += count_per_interrupt;
+    count_updated = true;
 }
 
 #pragma endregion
@@ -40,7 +56,7 @@ void FizzyEncoder::onInterrupt() {
 
 
 bool FizzyEncoder::sensorDetectedChange() {
-    return last_get_count != count;
+    return count_updated;
 }
 
 // This only peeks count member variable.
@@ -62,10 +78,16 @@ void FizzyEncoder::setControlMotor(FizzyMotor::Motor motor) {
     controllingMotor = motor;
 }
 
+FizzyMotor::Motor FizzyEncoder::controlMotor() {
+    return controllingMotor;
+}
+
 void FizzyEncoder::stabilize() {
 
-    fizzy->breakWheel(30, controllingMotor);
-    delay(128);
+    fizzy->breakWheel(FIZZY_ENCODER_STABILIZER_BREAK, controllingMotor);
+
+    delay(FIZZY_ENCODER_STABILIZER_DELAY);
+
     fizzy->releaseBreak(controllingMotor);
 }
 

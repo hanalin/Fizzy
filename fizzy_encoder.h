@@ -14,6 +14,10 @@
 #include "ifizzyencoder.h"
 #include "ifizzymicromouse.h"
 
+#define FIZZY_ENCODER_STABILIZER_BREAK  30
+#define FIZZY_ENCODER_STABILIZER_DELAY  128
+
+
 class FizzyEncoder : IFizzyEncoder
 {
  private:
@@ -25,6 +29,7 @@ class FizzyEncoder : IFizzyEncoder
      uint32_t count_per_interrupt;
 
      uint32_t count;
+     bool count_updated;
      uint32_t last_get_count;
 
      IFizzyMicroMouse* fizzy;
@@ -43,6 +48,10 @@ class FizzyEncoder : IFizzyEncoder
 
     void setClickTravel(int16_t mm);
 
+    void resetOdometer();
+    uint32_t odometerCount();
+    uint32_t odometer();
+
     void onInterrupt();
 
 #pragma endregion
@@ -53,7 +62,8 @@ class FizzyEncoder : IFizzyEncoder
     int32_t getValue();
 
     void setFizzy(IFizzyMicroMouse* fizzy);
-    virtual void setControlMotor(FizzyMotor::Motor motor);
+    void setControlMotor(FizzyMotor::Motor motor);
+    FizzyMotor::Motor controlMotor();
 
     SensorType sensorType();
 

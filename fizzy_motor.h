@@ -48,7 +48,6 @@ public:
     void breakLeft(int force);
     void breakRight(int force);
 
-
 protected:
     
     void breakWheel(uint8_t force, Motor m);
@@ -57,6 +56,8 @@ protected:
     void backwardWheel(Motor m, uint8_t break_force = 0);
 
     void stopWheel(Motor m);
+
+    int getState(Motor m);
 
 private:
     
@@ -77,9 +78,7 @@ private:
     uint8_t fizzy_state;
     
     static uint8_t motorState(uint8_t state, Motor m);
-    
-    int getState(Motor m);
-    
+        
     void setPinMode(int* motor);
 
     void stopWheel(MotorInfo* motor);
