@@ -46,6 +46,11 @@ public:
     void breakRight(int force);
 
 
+protected:
+    
+    void breakWheel(uint8_t force, Motor m);
+
+
 private:
     
     struct MotorInfo {
@@ -74,8 +79,6 @@ private:
     
     void forwardWheel(MotorInfo* motor, uint8_t break_force);
     void backwardWheel(MotorInfo* motor, uint8_t break_force);
-    
-    void breakWheel(uint8_t force, Motor m);
 
     int pinValue(MotorInfo* motor, uint8_t break_force);
 };

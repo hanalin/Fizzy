@@ -14,8 +14,6 @@
 #include "ifizzyencoder.h"
 #include "ifizzymicromouse.h"
 
-#define FIZZY_ENCODER_DIFF_THRES    1
-
 class FizzyEncoder : IFizzyEncoder
 {
  private:

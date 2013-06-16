@@ -42,7 +42,7 @@ void loop()
     digitalWrite(13, HIGH);
 
 
-    for ( int i = 0; i < 256; i+=8) {
+    for ( int i = 0; i < 256; i += 8) {
         motor.breakLeft(i);
         motor.breakRight(i);
         delay(100);

@@ -14,8 +14,8 @@
 #include "ifizzyencoder.h"
 #include "ifizzymicromouse.h"
 
-#define FIZZY_ENCODERS_COUNT    2
-
+#define FIZZY_ENCODERS_COUNT        2
+#define FIZZY_ENCODER_DIFF_THRES    1
 
 class FizzySmartMotor : public FizzyMotor, public IFizzyMicroMouse {
 
@@ -39,12 +39,12 @@ public:
 
 #pragma region IFizzyMicroMouse
 
-    void breakWheel(FizzyMotor::Motor controlling, uint8_t force);
+    void breakWheel(uint8_t force, Motor m);
 
     void stopWheels();
 
-    void turnClockWise(uint16_t degree);
-    void turnCounterClockWise(uint16_t degree);
+    // blocking
+    void turnClockWise(int16_t degree);
 
 #pragma endregion
 
@@ -53,6 +53,7 @@ private:
 
     int grids;
 
+    // Array of IFizzyEncoders
     IFizzyEncoder** encoders;
     uint8_t encoder_count;
 
@@ -60,13 +61,17 @@ private:
 
     void checkEncoderDiff(int first_encoder_index, int second_encoder_index);
 
+    // Simple list of IFizzySnesors
     class SensorList {
 
     public:
 
         SensorList(IFizzySensor* s) {
+
             sensor = s;
             next_sensor = NULL;
+
+            sensors_count = 0;
         }
 
         IFizzySensor* sensor;
@@ -85,23 +90,20 @@ private:
 
             for (n = this; n->hasNext(); n = n->next()) {}
 
+            sensors_count++;
             n->next_sensor = new SensorList(s);
         }
 
         int length() {
 
-            SensorList* n = this;
-            int l;
-
-            for (l = 0; n->hasNext(); n = n->next(), l++) {}
-
-            return l;
+            return sensors_count;
         }
 
 
     private:
 
         SensorList* next_sensor;
+        uint16_t sensors_count;
 
     } *sensors;
 };

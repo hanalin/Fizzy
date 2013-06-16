@@ -1,5 +1,6 @@
 
 #include "Arduino.h"
+#include "fizzy_motor.h"
 #include "fizzy_smart_motor.h"
 
 
@@ -48,10 +49,12 @@ void FizzySmartMotor::forward(int num_grids) {
 }
 
 void FizzySmartMotor::left() {
+    turnClockWise(-90);
 }
 
 
 void FizzySmartMotor::right() {
+    turnClockWise(90);
 }
 
 void FizzySmartMotor::checkEncoderDiff(int i1, int i2) {
@@ -78,20 +81,15 @@ void FizzySmartMotor::positionControl() {
 
 #pragma region implementing IFizzyMicroMouse
 
-void FizzySmartMotor::breakWheel(FizzyMotor::Motor controlling,
-                                 uint8_t force_max255) {
-    //  TODO: implement this function
+void FizzySmartMotor::breakWheel(uint8_t force, FizzyMotor::Motor m) {
+    FizzyMotor::breakWheel(force, m);
 }
 
 void FizzySmartMotor::stopWheels() {
-    //  TODO: implement this function
+    stop();
 }
 
-void FizzySmartMotor::turnClockWise(uint16_t degree) {
-    //  TODO: implement this function
-}
-
-void FizzySmartMotor::turnCounterClockWise(uint16_t degree) {
+void FizzySmartMotor::turnClockWise(int16_t degree) {
     //  TODO: implement this function
 }
 
