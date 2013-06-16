@@ -15,6 +15,13 @@ public:
     virtual void setClickTravel(int16_t mm) = 0;
 
     virtual void onInterrupt() = 0;
+
+
+#pragma region Inherited
+
+    virtual void stabilize() = 0;
+
+#pragma endregion
 };
 
 

@@ -9,6 +9,7 @@ class IFizzyMicroMouse {
 public:
 
     virtual void breakWheel(uint8_t force, FizzyMotor::Motor controlling) = 0;
+    virtual void releaseBreak(FizzyMotor::Motor controlling) = 0;
 
     virtual void stopWheels() = 0;
 

@@ -9,7 +9,8 @@
 #define Fizzy_smart_motor_h
 
 #include "Arduino.h"
-#include "Fizzy_motor.h"
+
+#include "fizzy_motor.h"
 #include "ifizzysensor.h"
 #include "ifizzyencoder.h"
 #include "ifizzymicromouse.h"
@@ -40,6 +41,7 @@ public:
 #pragma region IFizzyMicroMouse
 
     void breakWheel(uint8_t force, Motor m);
+    void releaseBreak(Motor m);
 
     void stopWheels();
 
@@ -59,7 +61,10 @@ private:
 
     void initializeMembers();
 
-    void checkEncoderDiff(int first_encoder_index, int second_encoder_index);
+    void stabilizerSystem();
+
+    void encoderStabilizerSystem(int first_encoder_index, int second_encoder_index);
+    void sensorsStabilizerSystem();
 
     // Simple list of IFizzySnesors
     class SensorList {

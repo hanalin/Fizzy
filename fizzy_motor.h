@@ -18,8 +18,11 @@
 #define FIZZY_MASK_MOTOR_RIGHT	0xFC
 #define FIZZY_MASK_MOTOR		(FIZZY_MASK_MOTOR_LEFT & FIZZY_MASK_MOTOR_RIGHT)
 
+#define FIZZY_STATE_MOTOR_STOP  	0
 #define FIZZY_STATE_MOTOR_FORWARD	1
 #define FIZZY_STATE_MOTOR_BACKWARD	2
+
+#define FIZZY_WHEEL_STATE(mask, state) (fizzy_state & (mask) | (state))
 
 
 class FizzyMotor {
@@ -50,6 +53,10 @@ protected:
     
     void breakWheel(uint8_t force, Motor m);
 
+    void forwardWheel(Motor m, uint8_t break_force = 0);
+    void backwardWheel(Motor m, uint8_t break_force = 0);
+
+    void stopWheel(Motor m);
 
 private:
     
@@ -81,6 +88,8 @@ private:
     void backwardWheel(MotorInfo* motor, uint8_t break_force);
 
     int pinValue(MotorInfo* motor, uint8_t break_force);
+
+
 };
 
 #endif

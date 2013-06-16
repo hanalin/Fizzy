@@ -1,6 +1,3 @@
-
-#include "Arduino.h"
-#include "fizzy_motor.h"
 #include "fizzy_smart_motor.h"
 
 
@@ -57,21 +54,39 @@ void FizzySmartMotor::right() {
     turnClockWise(90);
 }
 
-void FizzySmartMotor::checkEncoderDiff(int i1, int i2) {
+void FizzySmartMotor::encoderStabilizerSystem(int i1, int i2) {
 
     uint32_t c1 = encoders[i1]->getCount();
     uint32_t c2 = encoders[i2]->getCount();
 
     // abs(x) is a macro one keep the parens.
     if (FIZZY_ENCODER_DIFF_THRES < abs((c1 - c2))) {
-        //encoders[c1 > c2 ? i1 : i2]->stabilize();
+        encoders[c1 > c2 ? i1 : i2]->stabilize();
+    }
+}
+
+void FizzySmartMotor::sensorsStabilizerSystem() {
+
+    IFizzySensor* sensor;
+
+    for (SensorList* list = sensors; list->hasNext(); list = list->next()) {
+
+        sensor = list->sensor;
+
+        if(Encoder != sensor->sensorType() && sensor->sensorDetectedChange()) {
+            sensor->stabilize();
+        }
     }
 }
 
 void FizzySmartMotor::positionControl() {
 
     if (encoder_count > 1) {
-        checkEncoderDiff(0, 1);
+        encoderStabilizerSystem(0, 1);
+    }
+
+    if (sensors != NULL && sensors->length() > 0) {
+        sensorsStabilizerSystem();
     }
 }
 
@@ -85,12 +100,16 @@ void FizzySmartMotor::breakWheel(uint8_t force, FizzyMotor::Motor m) {
     FizzyMotor::breakWheel(force, m);
 }
 
+void FizzySmartMotor::releaseBreak(FizzyMotor::Motor m) {
+    FizzyMotor::breakWheel(0, m);
+}
+
 void FizzySmartMotor::stopWheels() {
     stop();
 }
 
 void FizzySmartMotor::turnClockWise(int16_t degree) {
-    //  TODO: implement this function
+    
 }
 
 #pragma endregion

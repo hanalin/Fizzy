@@ -1,6 +1,5 @@
-#include "ifizzysensor.h"
-#include "ifizzymicromouse.h"
 #include "fizzy_encoder.h"
+
 
 FizzyEncoder::FizzyEncoder(int int_num,
                            FizzyMotor::Motor controlling_motor,
@@ -59,12 +58,15 @@ SensorType FizzyEncoder::sensorType() {
     return Encoder;
 }
 
-void setControlMotor(FizzyMotor::Motor motor) {
-
+void FizzyEncoder::setControlMotor(FizzyMotor::Motor motor) {
+    controllingMotor = motor;
 }
 
 void FizzyEncoder::stabilize() {
-    //  TODO: implement this function
+
+    fizzy->breakWheel(30, controllingMotor);
+    delay(128);
+    fizzy->releaseBreak(controllingMotor);
 }
 
 #pragma endregion

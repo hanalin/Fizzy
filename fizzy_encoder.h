@@ -20,7 +20,7 @@ class FizzyEncoder : IFizzyEncoder
 
      int interruptNum;
 
-     // mili-meter per click/count
+     // millimeter per click/count
      int16_t travel_per_count;
      uint32_t count_per_interrupt;
 
@@ -57,6 +57,7 @@ class FizzyEncoder : IFizzyEncoder
 
     SensorType sensorType();
 
+    // blocking function
     void stabilize();
 
 #pragma endregion
