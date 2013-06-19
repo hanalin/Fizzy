@@ -3,9 +3,9 @@
 
 #include "Arduino.h"
 #include "ifizzysensor.h"
-#include "ifizzymicromouse.h"
+#include "ifizzysubsystem.h"
 
-class IFizzyEncoder : IFizzySensor {
+class IFizzyEncoder : public IFizzySensor {
 
 public:
     // use this instead of IFizzySensor::getValue()

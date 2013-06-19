@@ -1,17 +1,9 @@
 #include "fizzy_smart_motor.h"
 
 
-// Setting-up procedure in setup() or before loop()
-//  1. Initilize: new FizzySmartMotor(left_motor_pins, right_motor_pins)
-//  2. Add encoders: FizzySmartMotor::addEncoder(encoder)
-//  3. Add IR/Distance sensors: FizzySmartMotor::addSensor(sensor)
-//
-// In loop()
-//  1. Add FizzySmartMotor::positionControl()
-
 FizzySmartMotor::FizzySmartMotor(int left_motor_pins[2],
                                  int right_motor_pins[2])
-                                 : FizzyMotor(left_motor_pins, right_motor_pins), IFizzyMicroMouse() {
+                                 : FizzyMotor(left_motor_pins, right_motor_pins), IFizzySubSystem() {
 
     initializeMembers();
 }
@@ -43,6 +35,10 @@ void FizzySmartMotor::addSensor(IFizzySensor* sensor) {
 
 void FizzySmartMotor::forward(int num_grids) {
 
+}
+
+void FizzySmartMotor::forward() {
+    FizzyMotor::forward();
 }
 
 void FizzySmartMotor::left() {
@@ -94,7 +90,7 @@ void FizzySmartMotor::positionControl() {
 
 
 
-#pragma region implementing IFizzyMicroMouse
+#pragma region implementing IFizzySubSystem
 
 void FizzySmartMotor::breakWheel(uint8_t force, FizzyMotor::Motor m) {
     FizzyMotor::breakWheel(force, m);
@@ -155,39 +151,54 @@ uint32_t FizzySmartMotor::degree2Click(int16_t degree, bool one_wheel_only) {
 void FizzySmartMotor::controlTurning(int16_t degree,
                                      IFizzyEncoder* forward_motor_encoder,
                                      IFizzyEncoder* backward_motor_encoder) {
-                                         
-    forward_motor_encoder->resetOdometer();
-    backward_motor_encoder->resetOdometer();
-        
-    forwardWheel(forward_motor_encoder->controlMotor());
-    backwardWheel(backward_motor_encoder->controlMotor());
 
     int target_count = degree2Click(degree);
     int odo_count;
-
     bool turning = true;
+
+    forward_motor_encoder->resetOdometer();
+    backward_motor_encoder->resetOdometer();
+        
+    Serial.print("Forward: ");
+    Serial.println(forward_motor_encoder->controlMotor());
+    Serial.print("Backward: ");
+    Serial.println(backward_motor_encoder->controlMotor());
+
+    forwardWheel(forward_motor_encoder->controlMotor());
+    backwardWheel(backward_motor_encoder->controlMotor());
+
+    Serial.print("ODO Count Begin: ");
 
     while (turning) {
 
         turning = false;
 
         for (int i = 0; i < 2; i++) {
+
             odo_count = encoders[i]->odometerCount();
+            Serial.print(odo_count);
+            Serial.print(" ");
+
             if (odo_count >= target_count) {
                 if (FIZZY_STATE_MOTOR_STOP != getState(encoders[i]->controlMotor())) {
                     stopWheel(encoders[i]->controlMotor());
                 }
             }
             else {
-                if (odo_count + 8 > target_count) {
+                if (odo_count + 9 > target_count) {
                     // smooth stopping
-                    breakWheel(20 - (target_count - odo_count) * 2,
+                    breakWheel(22 - (target_count - odo_count) * 2,
                                 encoders[i]->controlMotor());
                 }
                 turning = true;
             }
         }
+        Serial.print(",");
     }
+
+    Serial.print("ODO Count End: ");
+    Serial.println(encoders[0]->odometerCount());
+
 }
 
 #pragma endregion

@@ -2,7 +2,7 @@
 #define i_Fizzy_sensor_h
 
 #include "Arduino.h"
-#include "ifizzymicromouse.h"
+#include "ifizzysubsystem.h"
 
 
 
@@ -22,7 +22,7 @@ public:
 
     virtual int32_t getValue() = 0;
 
-    virtual void setFizzy(IFizzyMicroMouse* fizzy) = 0;
+    virtual void setFizzy(IFizzySubSystem* fizzy) = 0;
     virtual void setControlMotor(FizzyMotor::Motor motor) = 0;
     virtual FizzyMotor::Motor controlMotor() = 0;
 

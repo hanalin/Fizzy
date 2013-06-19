@@ -13,12 +13,22 @@
 #include "fizzy_motor.h"
 #include "ifizzysensor.h"
 #include "ifizzyencoder.h"
-#include "ifizzymicromouse.h"
+#include "ifizzysubsystem.h"
 
 #define FIZZY_ENCODERS_COUNT        2
 #define FIZZY_ENCODER_DIFF_THRES    1
 
-class FizzySmartMotor : public FizzyMotor, public IFizzyMicroMouse {
+
+
+// Setting-up procedure in setup() or before loop()
+//  1. Initilize: new FizzySmartMotor(left_motor_pins, right_motor_pins)
+//  2. Add encoders: FizzySmartMotor::addEncoder(encoder)
+//  3. Add IR/Distance sensors: FizzySmartMotor::addSensor(sensor)
+//
+// In loop()
+//  1. Add FizzySmartMotor::positionControl()
+
+class FizzySmartMotor : public FizzyMotor, public IFizzySubSystem {
 
 public:
 
@@ -27,7 +37,15 @@ public:
     bool addEncoder(IFizzyEncoder* encoder);
     void addSensor(IFizzySensor* sensor);
 
+    void positionControl();
+
     void forward(int num_grids);
+
+#pragma region FizzyMotor Inherited
+
+    void forward();
+
+#pragma endregion
 
 #pragma region Overriding FizzyMotor
 
@@ -36,9 +54,7 @@ public:
 
 #pragma endregion
 
-    void positionControl();
-
-#pragma region IFizzyMicroMouse
+#pragma region IFizzySubSystem
 
     void breakWheel(uint8_t force, Motor m);
     void releaseBreak(Motor m);

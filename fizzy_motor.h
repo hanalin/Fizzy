@@ -9,20 +9,23 @@
 
 #include "Arduino.h"
 
-#define FIZZY_MOTOR_PIN_HIGH 255
+#define FIZZY_MOTOR_PIN_HIGH    255
 
-#define FIZZY_SPEED_MAX 255
-#define FIZZY_SPEED_MIN 0
+#define FIZZY_SPEED_MAX         255
+#define FIZZY_SPEED_MIN         0
 
-#define FIZZY_MASK_MOTOR_LEFT	0xF3
-#define FIZZY_MASK_MOTOR_RIGHT	0xFC
-#define FIZZY_MASK_MOTOR		(FIZZY_MASK_MOTOR_LEFT & FIZZY_MASK_MOTOR_RIGHT)
+#define FIZZY_MASK_MOTOR_LEFT   0xF3
+#define FIZZY_MASK_MOTOR_RIGHT  0xFC
+#define FIZZY_MASK_MOTOR        (FIZZY_MASK_MOTOR_LEFT & FIZZY_MASK_MOTOR_RIGHT)
 
-#define FIZZY_STATE_MOTOR_STOP  	0
-#define FIZZY_STATE_MOTOR_FORWARD	1
-#define FIZZY_STATE_MOTOR_BACKWARD	2
+#define FIZZY_MASK_FILTER_MOTOR_STATE   3
 
-#define FIZZY_WHEEL_STATE(mask, state) (fizzy_state & (mask) | (state))
+#define FIZZY_STATE_MOTOR_STOP      0
+#define FIZZY_STATE_MOTOR_FORWARD   1
+#define FIZZY_STATE_MOTOR_BACKWARD  2
+
+// Set state
+#define FIZZY_WHEEL_STATE(mask,state) (fizzy_state & (mask) | (state))
 
 
 class FizzyMotor {

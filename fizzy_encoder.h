@@ -12,13 +12,13 @@
 #include "fizzy_motor.h"
 #include "ifizzysensor.h"
 #include "ifizzyencoder.h"
-#include "ifizzymicromouse.h"
+#include "ifizzysubsystem.h"
 
 #define FIZZY_ENCODER_STABILIZER_BREAK  30
 #define FIZZY_ENCODER_STABILIZER_DELAY  128
 
 
-class FizzyEncoder : IFizzyEncoder
+class FizzyEncoder : public IFizzyEncoder
 {
  private:
 
@@ -32,14 +32,14 @@ class FizzyEncoder : IFizzyEncoder
      bool count_updated;
      uint32_t last_get_count;
 
-     IFizzyMicroMouse* fizzy;
+     IFizzySubSystem* fizzy;
      FizzyMotor::Motor controllingMotor;
 
  public:
 
 	FizzyEncoder(int int_num,
                  FizzyMotor::Motor controlling_motor,
-                 uint32_t count_per_interrupt = 1);
+                 uint32_t count_per_interrupt = (uint32_t)1);
 
 #pragma region IFizzyEncoder
 
@@ -61,7 +61,7 @@ class FizzyEncoder : IFizzyEncoder
     bool sensorDetectedChange();
     int32_t getValue();
 
-    void setFizzy(IFizzyMicroMouse* fizzy);
+    void setFizzy(IFizzySubSystem* fizzy);
     void setControlMotor(FizzyMotor::Motor motor);
     FizzyMotor::Motor controlMotor();
 

@@ -4,7 +4,7 @@
 #include "Arduino.h"
 #include "fizzy_motor.h"
 
-class IFizzyMicroMouse {
+class IFizzySubSystem {
 
 public:
 

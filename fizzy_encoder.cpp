@@ -6,7 +6,7 @@ FizzyEncoder::FizzyEncoder(int int_num,
                            uint32_t count_per_interrupt) {
 
     interruptNum = int_num;
-    controllingMotor = controllingMotor;
+    controllingMotor = controlling_motor;
     this->count_per_interrupt = count_per_interrupt;
 
     last_get_count = 0;
@@ -65,7 +65,7 @@ int32_t FizzyEncoder::getValue() {
     return (uint32_t)count;
 }
 
-void FizzyEncoder::setFizzy(IFizzyMicroMouse* fizzy) {
+void FizzyEncoder::setFizzy(IFizzySubSystem* fizzy) {
 
     this->fizzy = fizzy;
 }

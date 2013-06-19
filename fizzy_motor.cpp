@@ -93,18 +93,19 @@ void FizzyMotor::forwardWheel(Motor m, uint8_t break_force) {
 }
 
 void FizzyMotor::backwardWheel(Motor m, uint8_t break_force){
+
     switch(m) {
     
     case LeftMotor:
         backwardWheel(&motorLeft, break_force);
         fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_LEFT,
-                                        motorState(FIZZY_STATE_MOTOR_FORWARD, LeftMotor));
+                                        motorState(FIZZY_STATE_MOTOR_BACKWARD, LeftMotor));
         break;
 
     case RightMotor:
         backwardWheel(&motorRight, break_force);
         fizzy_state = FIZZY_WHEEL_STATE(FIZZY_MASK_MOTOR_RIGHT,
-                                        motorState(FIZZY_STATE_MOTOR_FORWARD, RightMotor));
+                                        motorState(FIZZY_STATE_MOTOR_BACKWARD, RightMotor));
         break;
     }
 }
@@ -127,7 +128,7 @@ void FizzyMotor::stopWheel(Motor m) {
 
 int FizzyMotor::getState(Motor m) {
 
-    return fizzy_state & ~FIZZY_MASK_MOTOR >> 2 * m;
+    return (fizzy_state & ~FIZZY_MASK_MOTOR) >> 2 * m & FIZZY_MASK_FILTER_MOTOR_STATE;
 }
 
 #pragma endregion
