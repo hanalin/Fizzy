@@ -1,3 +1,3 @@
-Arduino motor control with obstacle sensors.
+Arduino DC motor control with obstacle sensors.
 
 Part of Micromouse system.
