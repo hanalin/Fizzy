@@ -14,7 +14,7 @@
 #include "ifizzyencoder.h"
 #include "ifizzysubsystem.h"
 
-#define FIZZY_ENCODER_STABILIZER_BREAK  30
+#define FIZZY_ENCODER_STABILIZER_BRAKE  30
 #define FIZZY_ENCODER_STABILIZER_DELAY  128
 
 

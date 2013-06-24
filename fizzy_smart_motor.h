@@ -56,8 +56,8 @@ public:
 
 #pragma region IFizzySubSystem
 
-    void breakWheel(uint8_t force, Motor m);
-    void releaseBreak(Motor m);
+    void brakeWheel(uint8_t force, Motor m);
+    void releasebrake(Motor m);
 
     void stopWheels();
 

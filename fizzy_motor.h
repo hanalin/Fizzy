@@ -48,15 +48,15 @@ public:
     
     void setSpeed(uint8_t speed);
     
-    void breakLeft(int force);
-    void breakRight(int force);
+    void brakeLeft(int force);
+    void brakeRight(int force);
 
 protected:
     
-    void breakWheel(uint8_t force, Motor m);
+    void brakeWheel(uint8_t force, Motor m);
 
-    void forwardWheel(Motor m, uint8_t break_force = 0);
-    void backwardWheel(Motor m, uint8_t break_force = 0);
+    void forwardWheel(Motor m, uint8_t brake_force = 0);
+    void backwardWheel(Motor m, uint8_t brake_force = 0);
 
     void stopWheel(Motor m);
 
@@ -86,10 +86,10 @@ private:
 
     void stopWheel(MotorInfo* motor);
     
-    void forwardWheel(MotorInfo* motor, uint8_t break_force);
-    void backwardWheel(MotorInfo* motor, uint8_t break_force);
+    void forwardWheel(MotorInfo* motor, uint8_t brake_force);
+    void backwardWheel(MotorInfo* motor, uint8_t brake_force);
 
-    int pinValue(MotorInfo* motor, uint8_t break_force);
+    int pinValue(MotorInfo* motor, uint8_t brake_force);
 
 
 };

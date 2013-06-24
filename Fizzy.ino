@@ -83,8 +83,8 @@ void loop()
 
 
     //for ( int i = 0; i < 256; i += 8) {
-    //    motor.breakLeft(i);
-    //    motor.breakRight(i);
+    //    motor.brakeLeft(i);
+    //    motor.brakeRight(i);
     //    delay(100);
     //}
 

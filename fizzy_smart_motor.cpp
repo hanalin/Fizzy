@@ -92,12 +92,12 @@ void FizzySmartMotor::positionControl() {
 
 #pragma region implementing IFizzySubSystem
 
-void FizzySmartMotor::breakWheel(uint8_t force, FizzyMotor::Motor m) {
-    FizzyMotor::breakWheel(force, m);
+void FizzySmartMotor::brakeWheel(uint8_t force, FizzyMotor::Motor m) {
+    FizzyMotor::brakeWheel(force, m);
 }
 
-void FizzySmartMotor::releaseBreak(FizzyMotor::Motor m) {
-    FizzyMotor::breakWheel(0, m);
+void FizzySmartMotor::releasebrake(FizzyMotor::Motor m) {
+    FizzyMotor::brakeWheel(0, m);
 }
 
 void FizzySmartMotor::stopWheels() {
@@ -187,7 +187,7 @@ void FizzySmartMotor::controlTurning(int16_t degree,
             else {
                 if (odo_count + 9 > target_count) {
                     // smooth stopping
-                    breakWheel(22 - (target_count - odo_count) * 2,
+                    brakeWheel(22 - (target_count - odo_count) * 2,
                                 encoders[i]->controlMotor());
                 }
                 turning = true;

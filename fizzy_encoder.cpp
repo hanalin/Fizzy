@@ -84,11 +84,11 @@ FizzyMotor::Motor FizzyEncoder::controlMotor() {
 
 void FizzyEncoder::stabilize() {
 
-    fizzy->breakWheel(FIZZY_ENCODER_STABILIZER_BREAK, controllingMotor);
+    fizzy->brakeWheel(FIZZY_ENCODER_STABILIZER_BRAKE, controllingMotor);
 
     delay(FIZZY_ENCODER_STABILIZER_DELAY);
 
-    fizzy->releaseBreak(controllingMotor);
+    fizzy->releasebrake(controllingMotor);
 }
 
 #pragma endregion
